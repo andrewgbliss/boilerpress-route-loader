@@ -4,7 +4,10 @@ const path = require('path');
 
 const router = express.Router();
 
-module.exports = (cwd) => {
+module.exports = (cwd, prefix = '', middleware) => {
+  if (middleware) {
+    router.use(middleware);
+  }
   const options = {
     cwd,
   };
@@ -13,7 +16,7 @@ module.exports = (cwd) => {
     .filter(file => file.indexOf('index.js') === -1)
     .forEach((file) => {
       const name = file.substring(0, file.length - 3);
-      router.use(`/${name}`, require(path.join(cwd, file)));
+      router.use(`${prefix}/${name}`, require(path.join(cwd, file)));
     });
   return router;
 };
