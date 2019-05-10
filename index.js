@@ -10,9 +10,13 @@ module.exports = (cwd) => {
     ignore: [
       'index.js',
       '__tests__/**/*',
+      '**/__tests__/**/*',
       'test/**/*',
+      '**/test/**/*',
       '__test__/**/*',
-      'node_modules/**/*'
+      '**/__test__/**/*',
+      'node_modules/**/*',
+      '**/node_modules/**/*'
     ]
   };
   const files = glob.sync('**/*.js', options);
