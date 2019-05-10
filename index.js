@@ -7,10 +7,16 @@ const router = express.Router();
 module.exports = (cwd) => {
   const options = {
     cwd,
+    ignore: [
+      'index.js',
+      '__tests__/**/*',
+      'test/**/*',
+      '__test__/**/*',
+      'node_modules/**/*'
+    ]
   };
   const files = glob.sync('**/*.js', options);
   files
-    .filter(file => file.indexOf('index.js') === -1)
     .forEach((file) => {
       const name = file.substring(0, file.length - 3);
       router.use(`/${name}`, require(path.join(cwd, file)));
